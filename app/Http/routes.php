@@ -20,6 +20,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
+
 // check for logged in user
 Route::group(['middleware' => ['auth']], function()
 {
@@ -41,7 +43,17 @@ Route::group(['middleware' => ['auth']], function()
  Route::post('comment/add','CommentController@store');
  // delete comment
  Route::post('comment/delete/{id}','CommentController@distroy');
+ 
+	Route::group(['middleware' => ['admin']], function()
+	{
+	Route::get('admin', function(){	
+		return "ADMIN";
+	});
+	});
+ 
 });
+
+
 //users profile
 Route::get('user/{id}','UserController@profile')->where('id', '[0-9]+');
 // display list of posts
